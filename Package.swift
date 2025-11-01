@@ -4,20 +4,34 @@
 import PackageDescription
 
 let package = Package(
-    name: "SwiftF0",
-    products: [
-        // Products define the executables and libraries a package produces, making them visible to other packages.
-        .library(
-            name: "SwiftF0",
-            targets: ["SwiftF0"]
-        ),
-    ],
-    targets: [
-        // Targets are the basic building blocks of a package, defining a module or a test suite.
-        // Targets can depend on other targets in this package and products from dependencies.
-        .target(
-            name: "SwiftF0"
-        ),
-
-    ]
+  name: "SwiftF0",
+  platforms: [
+    .iOS(.v16),
+  ],
+  products: [
+    // Products define the executables and libraries a package produces, making them visible to other packages.
+    .library(
+      name: "SwiftF0",
+      targets: ["SwiftF0"]
+    )
+  ],
+  dependencies: [
+    .package(
+      url: "https://github.com/microsoft/onnxruntime-swift-package-manager",
+      from: "1.20.0"
+    )
+  ],
+  targets: [
+    // Targets are the basic building blocks of a package, defining a module or a test suite.
+    // Targets can depend on other targets in this package and products from dependencies.
+    .target(
+      name: "SwiftF0",
+      dependencies: [
+        .product(
+          name: "onnxruntime",
+          package: "onnxruntime-swift-package-manager"
+        )
+      ]
+    )
+  ]
 )
